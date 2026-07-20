@@ -58,6 +58,9 @@
                     @click.prevent="handleLogin"
                 >
                     <span v-if="!loading">登 录</span>
+                    <!--
+                    可以使用 v-else 为 v-if 添加一个“else 区块”。
+                    -->
                     <span v-else>登 录 中...</span>
                 </el-button>
                 <div style="float: right" v-if="register">
@@ -67,6 +70,9 @@
         </el-form>
         <!--  底部  -->
         <div class="el-login-footer">
+            <!--
+            <div> 是块级元素，而 <span> 是行内元素。
+            -->
             <span>Copyright © 2018-2023 ruoyi.vip All Rights Reserved.</span>
         </div>
     </div>

@@ -144,6 +144,9 @@
                     ></right-toolbar>
                 </el-row>
 
+                <!--loading是Feedback 反馈组件
+                @selectionChange Table组件 多选
+                -->
                 <el-table v-loading="loading" :data="userList" @selectionChange="handleSelectionChange">
                     <el-table-column type="selection" width="50" align="center" />
                     <el-table-column
@@ -462,6 +465,7 @@ const open = ref(false);
 const loading = ref(true);
 const showSearch = ref(true);
 const ids = ref<number[]>([]);
+// 控制“单选模式”的禁用状态
 const single = ref(true);
 const multiple = ref(true);
 const total = ref(0);
@@ -654,7 +658,14 @@ function handleResetPwd(row: any) {
 /** 选择条数  */
 function handleSelectionChange(selection: any[]) {
     ids.value = selection.map(item => item.userId);
+    // 控制“单选模式”的禁用状态
     single.value = selection.length !== 1;
+    /*
+    判断是否未选中任何项，结果赋给 multiple。
+    如果 selection.length === 0（未选中），multiple.value 为 true。
+    如果 selection.length > 0（选中了至少 1 项），multiple.value 为 false。
+    典型场景：控制“批量操作”按钮的禁用状态（例如，未选中任何项时禁用批量删除）。
+    */
     multiple.value = !selection.length;
 }
 /** 导入按钮操作 */
